@@ -1,35 +1,22 @@
-## Green Code — Démarche éco-responsable
+## Green Code â€” DÃ©marche Ã©co-responsable
 
-Ce projet intègre une réflexion sur l'éco-conception logicielle (Green Code),
-visant à réduire l'empreinte environnementale de l'application.
+Ce projet intÃ¨gre une rÃ©flexion sur la faÃ§on de rÃ©duire l'impact environnemental du logiciel : consommer moins de ressources (calcul, rÃ©seau, mÃ©moire) pour le mÃªme rÃ©sultat.
 
-### Principes appliqués
+### Principes appliquÃ©s
 
-- **Réduction des appels réseau** : RiskService regroupe ses appels vers
-  PatientService et NoteService en deux requêtes ciblées plutôt qu'en
-  interrogeant des endpoints larges.
+- **RÃ©duction des appels rÃ©seau** : RiskService ne demande que ce dont il a besoin â€” les informations du patient d'un cÃ´tÃ©, ses notes de l'autre. Pas de donnÃ©es superflues chargÃ©es.
 
-- **Algorithme sobre** : le comptage des déclencheurs dans RiskService
-  concatène toutes les notes en une seule chaîne avant de chercher chaque
-  terme — une seule passe par déclencheur au lieu de boucles imbriquées.
+- **Algorithme sobre** : pour chercher les termes mÃ©dicaux dans les notes, toutes les notes sont d'abord regroupÃ©es en un seul texte, puis chaque terme est cherchÃ© en une seule lecture. Cela Ã©vite de relire les mÃªmes notes plusieurs fois.
 
-- **Réutilisation des connexions HTTP** : utilisation de `IHttpClientFactory`
-  dans RiskService pour mutualiser les `HttpClient` et éviter l'épuisement
-  des sockets (socket exhaustion).
+- **RÃ©utilisation des connexions HTTP** : les connexions rÃ©seau entre services ne sont pas recrÃ©Ã©es Ã  chaque requÃªte â€” elles sont mutualisÃ©es. Cela Ã©vite un gaspillage de ressources Ã  chaque appel.
 
-- **Images Docker légères** : chaque service utilise un build multi-stage
-  (`mcr.microsoft.com/dotnet/aspnet` en image finale) — seul le runtime
-  est embarqué, pas le SDK de compilation.
+- **Images Docker lÃ©gÃ¨res** : les images Docker utilisÃ©es en production ne contiennent que ce qui est strictement nÃ©cessaire pour faire tourner l'application â€” les outils de dÃ©veloppement ne sont pas inclus, ce qui rÃ©duit la taille et la consommation au dÃ©marrage.
 
-- **Requêtes ciblées** : les endpoints ne chargent que les données
-  nécessaires (ex : GET /api/note/patient/{id} retourne uniquement les
-  notes du patient concerné, pas toute la collection).
+- **RequÃªtes ciblÃ©es** : chaque service ne rÃ©cupÃ¨re que les donnÃ©es dont il a besoin. Par exemple, on ne charge pas toutes les notes de tous les patients pour en afficher une seule.
 
-### Pistes d'amélioration futures
+### Pistes d'amÃ©lioration futures
 
-- Mise en cache des évaluations de risque (ex : Redis) pour éviter de
-  recalculer à chaque requête si les notes n'ont pas changé.
-- Indexation de la collection MongoDB sur `PatientId` pour éviter les
-  scans complets de collection.
-- Pagination des notes pour les patients avec un historique volumineux.
-- Suppression du logging verbeux en environnement de production.
+- MÃ©moriser les rÃ©sultats dÃ©jÃ  calculÃ©s : si les notes d'un patient n'ont pas changÃ©, inutile de recalculer son niveau de risque Ã  chaque consultation â€” on pourrait stocker temporairement le dernier rÃ©sultat.
+- AccÃ©lÃ©rer les recherches dans la base de notes : en ajoutant un repÃ¨re sur l'identifiant du patient dans MongoDB, les recherches seraient bien plus rapides sur un grand volume de donnÃ©es.
+- Afficher les notes par pages : pour un patient avec un historique trÃ¨s long, charger toutes les notes d'un coup n'est pas optimal. Les afficher par tranches serait plus sobre.
+- RÃ©duire les journaux en production : en dÃ©veloppement, on enregistre beaucoup d'informations pour dÃ©boguer. En production, ces journaux dÃ©taillÃ©s sont inutiles et consomment des ressources.
