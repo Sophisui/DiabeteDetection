@@ -1,0 +1,48 @@
+﻿@page "/patient/{Id:int}"
+@using FrontendService.Models
+@using FrontendService.Components.Shared
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h3>Détail du patient</h3>
+
+@if (patient == null)
+{
+    <p>Chargement...</p>
+}
+else
+{
+    <PatientForm Patient="patient" />
+
+    <div class="mt-3">
+        <button class="btn btn-primary" @onclick="Update">Modifier</button>
+        <button class="btn btn-danger ms-2" @onclick="Delete">Supprimer</button>
+        <a href="/" class="btn btn-secondary ms-2">Retour</a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(message))
+    {
+        <p class="text-success mt-2">@message</p>
+    }
+
+    <hr />
+
+    <h4>Notes du médecin</h4>
+    <NoteList Notes="notes" @key="notes?.Count" />
+
+    <hr />
+
+    <h4>Ajouter une note</h4>
+    <NoteForm OnNoteAdded="AddNote" />
+
+    <hr />
+    <h4>Évaluation du risque de diabète</h4>
+    @if (risk is null)
+    {
+        <p>Chargement de l'évaluation...</p>
+    }
+    else
+    {
+        <p>Résultat : <strong>@risk.Assessment</strong></p>
+        <p>Âge : @risk.Age ans | Genre : @risk.Gender | Déclencheurs détectés : @risk.TriggerCount</p>
+    }
+}

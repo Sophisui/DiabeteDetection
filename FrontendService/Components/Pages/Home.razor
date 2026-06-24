@@ -1,0 +1,43 @@
+﻿@page "/"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h3>Liste des patients</h3>
+
+@if (patients == null)
+{
+    <p>Chargement...</p>
+}
+else if (!patients.Any())
+{
+    <p>Aucun patient trouvé.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>Genre</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var patient in patients)
+            {
+                <tr>
+                    <td>@patient.LastName</td>
+                    <td>@patient.FirstName</td>
+                    <td>@patient.DateOfBirth.ToString("dd/MM/yyyy")</td>
+                    <td>@patient.Gender</td>
+                    <td>
+                        <a href="/patient/@patient.Id" class="btn btn-sm btn-primary">Voir</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a href="/patient/create" class="btn btn-success">Ajouter un patient</a>

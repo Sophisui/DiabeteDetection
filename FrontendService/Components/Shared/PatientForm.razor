@@ -1,0 +1,35 @@
+﻿@using FrontendService.Models
+@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm Model="Patient">
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Prénom</label>
+            <InputText @bind-Value="Patient.FirstName" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Nom</label>
+            <InputText @bind-Value="Patient.LastName" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <label class="form-label">Date de naissance</label>
+            <InputDate @bind-Value="Patient.DateOfBirth" class="form-control" />
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">Genre</label>
+            <InputText @bind-Value="Patient.Gender" class="form-control" />
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label class="form-label">Adresse</label>
+            <InputText @bind-Value="Patient.Address" class="form-control" />
+        </div>
+        <div class="col-md-6">
+            <label class="form-label">Téléphone</label>
+            <InputText @bind-Value="Patient.PhoneNumber" class="form-control" />
+        </div>
+    </div>
+</EditForm>

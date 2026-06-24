@@ -1,0 +1,18 @@
+﻿@page "/patient/create"
+@using FrontendService.Models
+@using FrontendService.Components.Shared
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<h3>Ajouter un patient</h3>
+
+<PatientForm Model="patient" />
+
+<div class="mt-3">
+    <button class="btn btn-success" @onclick="Create">Ajouter</button>
+    <a href="/" class="btn btn-secondary ms-2">Retour</a>
+</div>
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <p class="text-success mt-2">@message</p>
+}

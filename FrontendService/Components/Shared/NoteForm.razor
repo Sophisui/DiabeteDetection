@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Components.Forms
+
+<EditForm Model="this">
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <label class="form-label">Nouvelle note</label>
+            <InputTextArea @bind-Value="Content" class="form-control" rows="4"
+                           placeholder="Saisissez votre note ici..." />
+        </div>
+    </div>
+    <button class="btn btn-success" type="button" @onclick="HandleSubmit">
+        Ajouter la note
+    </button>
+</EditForm>
+
+@if (!string.IsNullOrEmpty(Message))
+{
+    <p class="text-success mt-2">@Message</p>
+}

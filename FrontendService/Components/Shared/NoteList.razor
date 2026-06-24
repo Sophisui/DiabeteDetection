@@ -1,0 +1,22 @@
+﻿@using FrontendService.Models
+
+@if (Notes == null)
+{
+    <p>Chargement des notes...</p>
+}
+else if (!Notes.Any())
+{
+    <p>Aucune note pour ce patient.</p>
+}
+else
+{
+    @foreach (var note in Notes)
+    {
+        <div class="card mb-2">
+            <div class="card-body">
+                <p class="card-text" style="white-space: pre-wrap;">@note.Content</p>
+                <small class="text-muted">@note.CreatedAt.ToString("dd/MM/yyyy HH:mm")</small>
+            </div>
+        </div>
+    }
+}

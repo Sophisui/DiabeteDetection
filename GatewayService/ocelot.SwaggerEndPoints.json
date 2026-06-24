@@ -1,0 +1,48 @@
+{
+  "SwaggerEndPoints": [
+    {
+      "Key": "authservice",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Auth Service",
+          "Version": "v1",
+          "Url": "http://authservice:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "patientservice",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Patient Service",
+          "Version": "v1",
+          "Url": "http://patientservice:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "noteservice",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Note Service",
+          "Version": "v1",
+          "Url": "http://noteservice:8080/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "riskservice",
+      "TransformByOcelotConfig": false,
+      "Config": [
+        {
+          "Name": "Risk Service",
+          "Version": "v1",
+          "Url": "http://riskservice:8080/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+}
