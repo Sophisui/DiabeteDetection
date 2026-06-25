@@ -1,3 +1,45 @@
+## Lancer le projet
+
+### Prérequis
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop) installé et démarré
+- [Git](https://git-scm.com/) pour cloner le projet
+
+### Démarrage
+
+1. Cloner le repository :
+```bash
+   git clone https://github.com/Sophisui/DiabeteDetection
+   cd DiabeteDetection
+```
+
+2. Lancer tous les services :
+```bash
+   docker-compose up --build
+```
+
+3. Attendre que tous les services soient démarrés (environ 30 secondes
+   le temps que SQL Server s'initialise).
+
+### Accès à l'application
+
+| Service | URL |
+|---|---|
+| Interface web (Frontend) | http://localhost:5002 |
+| Documentation API (Swagger) | http://localhost:5000/swagger |
+
+### Compte de test
+
+| Identifiant | Mot de passe |
+|---|---|
+| admin | Admin123! |
+
+### Arrêter le projet
+
+```bash
+docker-compose down
+```
+
 ## Green Code — Démarche éco-responsable
 
 Ce projet intègre une réflexion sur la façon de réduire l'impact environnemental du logiciel : consommer moins de ressources (calcul, réseau, mémoire) pour le même résultat.
